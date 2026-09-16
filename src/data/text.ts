@@ -1,0 +1,221 @@
+import type { Command } from '../types'
+import { L } from './l'
+
+export const text: Command[] = [
+  {
+    id: 'str',
+    name: 'str()',
+    signature: 'str(object="")',
+    category: 'text',
+    subcategory: 'str-create',
+    description: L(
+      'Converte un oggetto in stringa leggibile. Le stringhe sono immutabili: ogni metodo ne restituisce una nuova.',
+      'Converts an object to a readable string. Strings are immutable: every method returns a new one.',
+      'Convierte un objeto en una cadena legible. Las cadenas son inmutables: cada método devuelve una nueva.',
+      'Convertit un objet en chaîne lisible. Les chaînes sont immuables : chaque méthode en renvoie une nouvelle.',
+    ),
+    examples: [
+      { code: 'print(str(42))\nprint("Py" + "thon")\nprint("ha" * 3)\nprint(len("Python"))', result: '42\nPython\nhahaha\n6' },
+    ],
+    related: ['repr', 'format', 'fstring'],
+  },
+  {
+    id: 'chr-ord',
+    name: 'chr() / ord()',
+    signature: 'chr(i)  ord(c)',
+    category: 'text',
+    subcategory: 'str-create',
+    description: L(
+      'chr() trasforma un code point Unicode in carattere. ord() fa il contrario.',
+      'chr() turns a Unicode code point into a character. ord() does the reverse.',
+      'chr() transforma un code point Unicode en carácter. ord() hace lo contrario.',
+      'chr() transforme un point de code Unicode en caractère. ord() fait l’inverse.',
+    ),
+    examples: [
+      { code: 'print(chr(65), chr(0x1F40D))\nprint(ord("A"), ord("è"))', result: 'A 🐍\n65 232' },
+    ],
+    related: ['str', 'repr'],
+  },
+  {
+    id: 'repr',
+    name: 'repr() / ascii()',
+    signature: 'repr(object)  ascii(object)',
+    category: 'text',
+    subcategory: 'str-create',
+    description: L(
+      'repr() è la rappresentazione “da programmatore”, spesso valida come codice. ascii() escapa i caratteri non ASCII.',
+      'repr() is the “programmer” representation, often valid as code. ascii() escapes non-ASCII characters.',
+      'repr() es la representación “de programador”, a menudo válida como código. ascii() escapa los caracteres no ASCII.',
+      'repr() est la représentation « programmeur », souvent valide comme code. ascii() échappe les caractères non ASCII.',
+    ),
+    examples: [
+      { code: 'print(str("ciao"))\nprint(repr("ciao"))\nprint(ascii("città"))', result: 'ciao\n\'ciao\'\n\'citt\\xe0\'' },
+    ],
+    related: ['str', 'format'],
+  },
+  {
+    id: 'upper-lower',
+    name: 'str.upper() / lower()',
+    signature: 's.upper()  s.lower()  s.title()  s.capitalize()  s.swapcase()',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Cambiano il maiuscolo/minuscolo. title() mette in maiuscolo ogni parola; capitalize() solo la prima lettera della stringa.',
+      'Change letter case. title() capitalizes every word; capitalize() only the first letter of the string.',
+      'Cambian mayúsculas/minúsculas. title() pone en mayúscula cada palabra; capitalize() solo la primera letra.',
+      'Changent la casse. title() met en capitale chaque mot ; capitalize() seulement la première lettre.',
+    ),
+    examples: [
+      { code: 's = "ciao PYTHON"\nprint(s.upper())\nprint(s.lower())\nprint(s.title())', result: 'CIAO PYTHON\nciao python\nCiao Python' },
+    ],
+    related: ['strip', 'replace', 'startswith'],
+  },
+  {
+    id: 'strip',
+    name: 'str.strip()',
+    signature: 's.strip([chars])  s.lstrip()  s.rstrip()',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Rimuove spazi (o i caratteri indicati) agli estremi. Non tocca l’interno della stringa.',
+      'Removes spaces (or the given characters) at the ends. It does not touch the inside of the string.',
+      'Quita espacios (o los caracteres indicados) en los extremos. No toca el interior de la cadena.',
+      'Retire les espaces (ou les caractères indiqués) aux extrémités. Ne touche pas l’intérieur de la chaîne.',
+    ),
+    examples: [
+      { code: 'print("  ciao  ".strip())\nprint("xxciao".strip("x"))\nprint("  ciao  ".rstrip())', result: 'ciao\nciao\n  ciao' },
+    ],
+    related: ['split', 'replace'],
+  },
+  {
+    id: 'split',
+    name: 'str.split()',
+    signature: 's.split(sep=None, maxsplit=-1)  s.rsplit()  s.splitlines()',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Spezza la stringa in una lista. Senza sep, raggruppa gli spazi. splitlines() spezza sulle righe.',
+      'Splits the string into a list. Without sep, it groups whitespace. splitlines() splits on lines.',
+      'Parte la cadena en una lista. Sin sep, agrupa los espacios. splitlines() parte por líneas.',
+      'Découpe la chaîne en liste. Sans sep, regroupe les espaces. splitlines() découpe sur les lignes.',
+    ),
+    examples: [
+      { code: 'print("a,b,c".split(","))\nprint("uno  due   tre".split())\nprint("a,b,c".split(",", 1))', result: "['a', 'b', 'c']\n['uno', 'due', 'tre']\n['a', 'b,c']" },
+    ],
+    related: ['join', 'strip'],
+  },
+  {
+    id: 'join',
+    name: 'str.join()',
+    signature: 'separator.join(iterable)',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Unisce un iterabile di stringhe usando il separatore. Molto più efficiente di sommare stringhe in un ciclo.',
+      'Joins an iterable of strings using the separator. Much more efficient than adding strings in a loop.',
+      'Une un iterable de cadenas usando el separador. Mucho más eficiente que sumar cadenas en un bucle.',
+      'Joint un itérable de chaînes avec le séparateur. Bien plus efficace que d’ajouter des chaînes dans une boucle.',
+    ),
+    examples: [
+      { code: 'print("-".join(["a", "b", "c"]))\nprint("".join(["Py", "thon"]))', result: 'a-b-c\nPython' },
+    ],
+    tip: L(
+      'Tutti gli elementi devono essere stringhe. Con numeri: ",".join(str(n) for n in nums).',
+      'All items must be strings. With numbers: ",".join(str(n) for n in nums).',
+      'Todos los elementos deben ser cadenas. Con números: ",".join(str(n) for n in nums).',
+      'Tous les éléments doivent être des chaînes. Avec des nombres : ",".join(str(n) for n in nums).',
+    ),
+    related: ['split', 'sum', 'fstring'],
+  },
+  {
+    id: 'replace',
+    name: 'str.replace()',
+    signature: 's.replace(old, new, count=-1)',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Sostituisce le occorrenze di old con new. count limita quante sostituzioni fare.',
+      'Replaces occurrences of old with new. count limits how many replacements to make.',
+      'Sustituye las ocurrencias de old por new. count limita cuántas sustituciones hacer.',
+      'Remplace les occurrences de old par new. count limite le nombre de remplacements.',
+    ),
+    examples: [
+      { code: 'print("banana".replace("a", "o"))\nprint("banana".replace("a", "o", 1))', result: 'bonono\nbonana' },
+    ],
+    related: ['find', 're'],
+  },
+  {
+    id: 'find',
+    name: 'str.find() / index()',
+    signature: 's.find(sub)  s.index(sub)  s.count(sub)',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'find() restituisce l’indice o -1 se manca. index() alza ValueError. count() conta le occorrenze.',
+      'find() returns the index or -1 if missing. index() raises ValueError. count() counts occurrences.',
+      'find() devuelve el índice o -1 si falta. index() lanza ValueError. count() cuenta las ocurrencias.',
+      'find() renvoie l’index ou -1 s’il manque. index() lève ValueError. count() compte les occurrences.',
+    ),
+    examples: [
+      { code: 'print("python".find("th"))\nprint("python".find("z"))\nprint("banana".count("a"))', result: '2\n-1\n3' },
+    ],
+    related: ['startswith', 'in', 'replace'],
+  },
+  {
+    id: 'startswith',
+    name: 'str.startswith() / endswith()',
+    signature: 's.startswith(prefix)  s.endswith(suffix)',
+    category: 'text',
+    subcategory: 'str-methods',
+    description: L(
+      'Verificano se la stringa inizia o finisce con un prefisso/suffisso. Accettano anche una tupla di alternative.',
+      'Check whether the string starts or ends with a prefix/suffix. They also accept a tuple of alternatives.',
+      'Comprueban si la cadena empieza o termina con un prefijo/sufijo. También aceptan una tupla de alternativas.',
+      'Vérifient si la chaîne commence ou finit par un préfixe/suffixe. Acceptent aussi un tuple d’alternatives.',
+    ),
+    examples: [
+      { code: 'print("report.pdf".endswith((".pdf", ".txt")))\nprint("https://x".startswith("https"))', result: 'True\nTrue' },
+    ],
+    related: ['find', 'in'],
+  },
+  {
+    id: 'format',
+    name: 'str.format()',
+    signature: 's.format(*args, **kwargs)',
+    category: 'text',
+    subcategory: 'str-format',
+    description: L(
+      'Inserisce valori nei campi { }. Supporta indici, nomi e specifiche di formato (cifre, allineamento).',
+      'Inserts values into { } fields. Supports indexes, names and format specs (digits, alignment).',
+      'Inserta valores en los campos { }. Admite índices, nombres y especificaciones de formato.',
+      'Insère des valeurs dans les champs { }. Prend en charge index, noms et spécifications de format.',
+    ),
+    examples: [
+      { code: 'print("{0} ha {1} anni".format("Ada", 36))\nprint("{name:>8} {n:05d}".format(name="Ada", n=7))', result: 'Ada ha 36 anni\n     Ada 00007' },
+    ],
+    related: ['fstring', 'print'],
+  },
+  {
+    id: 'fstring',
+    name: 'f-string',
+    signature: 'f"...{espressione}..."',
+    category: 'text',
+    subcategory: 'str-format',
+    description: L(
+      'Stringa interpolata: valuta espressioni tra graffe. Da Python 3.8 puoi usare {x=} per debug. Da 3.12 le f-string sono più flessibili.',
+      'Interpolated string: evaluates expressions in braces. From Python 3.8 you can use {x=} for debug. From 3.12 f-strings are more flexible.',
+      'Cadena interpolada: evalúa expresiones entre llaves. Desde Python 3.8 puedes usar {x=} para depurar. Desde 3.12 son más flexibles.',
+      'Chaîne interpolée : évalue des expressions entre accolades. Dès Python 3.8, {x=} sert au débogage. Dès 3.12 elles sont plus souples.',
+    ),
+    examples: [
+      { code: 'nome, n = "Ada", 3.14159\nprint(f"{nome} π≈{n:.2f}")\nprint(f"{nome=}, {n=:.3f}")', result: 'Ada π≈3.14\nnome=\'Ada\', n=3.142' },
+    ],
+    tip: L(
+      'Preferisci f-string a % e a format() per codice nuovo: sono più veloci e più leggibili.',
+      'Prefer f-strings over % and format() for new code: they are faster and more readable.',
+      'Prefiere f-string a % y a format() para código nuevo: son más rápidas y legibles.',
+      'Préférez les f-strings à % et format() pour le code nouveau : plus rapides et plus lisibles.',
+    ),
+    related: ['format', 'print', 'repr'],
+  },
+]

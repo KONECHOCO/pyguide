@@ -1,0 +1,238 @@
+import type { Command } from '../types'
+import { L } from './l'
+
+export const sequences: Command[] = [
+  {
+    id: 'list',
+    name: 'list()',
+    signature: 'list(iterable=[])',
+    category: 'sequences',
+    subcategory: 'lists',
+    description: L(
+      'Sequenza mutabile e ordinata. Gli indici partono da 0; gli indici negativi contano dalla fine.',
+      'Mutable ordered sequence. Indexes start at 0; negative indexes count from the end.',
+      'Secuencia mutable y ordenada. Los índices empiezan en 0; los negativos cuentan desde el final.',
+      'Séquence mutable et ordonnée. Les index commencent à 0 ; les négatifs comptent depuis la fin.',
+    ),
+    examples: [
+      { code: 'nums = [10, 20, 30]\nprint(nums[0], nums[-1])\nnums[1] = 99\nprint(nums)', result: '10 30\n[10, 99, 30]' },
+    ],
+    related: ['append', 'slicing', 'tuple'],
+  },
+  {
+    id: 'append',
+    name: 'list.append() / extend() / insert()',
+    signature: 'lst.append(x)  lst.extend(iterable)  lst.insert(i, x)',
+    category: 'sequences',
+    subcategory: 'lists',
+    description: L(
+      'append aggiunge un elemento in coda. extend aggiunge tutti gli elementi di un iterabile. insert inserisce a un indice.',
+      'append adds one item at the end. extend adds every item from an iterable. insert puts an item at an index.',
+      'append añade un elemento al final. extend añade todos los de un iterable. insert inserta en un índice.',
+      'append ajoute un élément à la fin. extend ajoute tous les éléments d’un itérable. insert insère à un index.',
+    ),
+    examples: [
+      { code: 'a = [1]\na.append(2)\na.extend([3, 4])\na.insert(0, 0)\nprint(a)', result: '[0, 1, 2, 3, 4]' },
+    ],
+    tip: L(
+      'append(x) aggiunge x come singolo elemento, anche se x è una lista. Per unire liste usa extend o +.',
+      'append(x) adds x as a single item, even if x is a list. To merge lists use extend or +.',
+      'append(x) añade x como un solo elemento, aunque x sea una lista. Para unir listas usa extend o +.',
+      'append(x) ajoute x comme un seul élément, même si x est une liste. Pour fusionner, utilisez extend ou +.',
+    ),
+    related: ['pop', 'list', 'join'],
+  },
+  {
+    id: 'pop',
+    name: 'list.pop() / remove() / clear()',
+    signature: 'lst.pop([i])  lst.remove(x)  lst.clear()',
+    category: 'sequences',
+    subcategory: 'lists',
+    description: L(
+      'pop rimuove e restituisce l’elemento (ultimo di default). remove toglie la prima occorrenza di x. clear svuota.',
+      'pop removes and returns an item (last by default). remove drops the first occurrence of x. clear empties the list.',
+      'pop quita y devuelve un elemento (el último por defecto). remove elimina la primera ocurrencia de x. clear vacía.',
+      'pop retire et renvoie un élément (le dernier par défaut). remove enlève la première occurrence de x. clear vide.',
+    ),
+    examples: [
+      { code: 'a = [1, 2, 2, 3]\nprint(a.pop())\na.remove(2)\nprint(a)', result: '3\n[1, 2]' },
+    ],
+    related: ['append', 'list'],
+  },
+  {
+    id: 'list-sort',
+    name: 'list.sort() / reverse()',
+    signature: 'lst.sort(*, key=None, reverse=False)  lst.reverse()',
+    category: 'sequences',
+    subcategory: 'lists',
+    description: L(
+      'Ordinano o invertano la lista sul posto e restituiscono None. Per una nuova lista usa sorted() o reversed().',
+      'Sort or reverse the list in place and return None. For a new list use sorted() or reversed().',
+      'Ordenan o invierten la lista in situ y devuelven None. Para una lista nueva usa sorted() o reversed().',
+      'Trient ou inversent la liste sur place et renvoient None. Pour une nouvelle liste, utilisez sorted() ou reversed().',
+    ),
+    examples: [
+      { code: 'a = [3, 1, 2]\nb = sorted(a)\na.sort()\nprint(b, a)', result: '[1, 2, 3] [1, 2, 3]' },
+    ],
+    related: ['sorted', 'reversed'],
+  },
+  {
+    id: 'tuple',
+    name: 'tuple()',
+    signature: 'tuple(iterable=())',
+    category: 'sequences',
+    subcategory: 'tuples',
+    description: L(
+      'Sequenza immutabile. Utile come chiave di dizionario e per raggruppare valori eterogenei. Una tupla di un elemento vuole la virgola: (1,).',
+      'Immutable sequence. Useful as a dict key and to group mixed values. A one-item tuple needs a comma: (1,).',
+      'Secuencia inmutable. Útil como clave de diccionario y para agrupar valores mixtos. Una tupla de un elemento necesita coma: (1,).',
+      'Séquence immuable. Utile comme clé de dict et pour grouper des valeurs mixtes. Un tuple à un élément a besoin de la virgule : (1,).',
+    ),
+    examples: [
+      { code: 't = (1, "a", 1)\nprint(t[1], t.count(1))\nprint(type((1)), type((1,)))', result: "a 2\n<class 'int'> <class 'tuple'>" },
+    ],
+    related: ['list', 'unpack', 'dict'],
+  },
+  {
+    id: 'range',
+    name: 'range()',
+    signature: 'range(stop)  range(start, stop, step=1)',
+    category: 'sequences',
+    subcategory: 'tuples',
+    description: L(
+      'Sequenza pigra di interi. Non crea la lista in memoria: è ideale nei for. Lo stop è escluso.',
+      'Lazy sequence of integers. It does not build the list in memory: ideal in for loops. stop is exclusive.',
+      'Secuencia perezosa de enteros. No crea la lista en memoria: ideal en for. stop queda excluido.',
+      'Séquence paresseuse d’entiers. Elle ne construit pas la liste en mémoire : idéale dans les for. stop est exclu.',
+    ),
+    examples: [
+      { code: 'print(list(range(4)))\nprint(list(range(2, 10, 3)))\nprint(list(range(5, 0, -1)))', result: '[0, 1, 2, 3]\n[2, 5, 8]\n[5, 4, 3, 2, 1]' },
+    ],
+    related: ['for', 'enumerate', 'list'],
+  },
+  {
+    id: 'len',
+    name: 'len()',
+    signature: 'len(s)',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Numero di elementi di una sequenza, collezione o stringa. Funziona in tempo costante su questi tipi built-in.',
+      'Number of items in a sequence, collection or string. Constant time on these built-in types.',
+      'Número de elementos de una secuencia, colección o cadena. Tiempo constante en estos tipos integrados.',
+      'Nombre d’éléments d’une séquence, collection ou chaîne. Temps constant sur ces types intégrés.',
+    ),
+    examples: [
+      { code: 'print(len("ciao"))\nprint(len([1, 2, 3]))\nprint(len({"a": 1}))', result: '4\n3\n1' },
+    ],
+    related: ['bool', 'range'],
+  },
+  {
+    id: 'sorted',
+    name: 'sorted()',
+    signature: 'sorted(iterable, /, *, key=None, reverse=False)',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Restituisce una nuova lista ordinata. L’iterabile originale non viene modificato.',
+      'Returns a new sorted list. The original iterable is not modified.',
+      'Devuelve una lista nueva ordenada. El iterable original no se modifica.',
+      'Renvoie une nouvelle liste triée. L’itérable d’origine n’est pas modifié.',
+    ),
+    examples: [
+      { code: 'words = ["pera", "albicocca", "kiwi"]\nprint(sorted(words))\nprint(sorted(words, key=len, reverse=True))', result: "['albicocca', 'kiwi', 'pera']\n['albicocca', 'pera', 'kiwi']" },
+    ],
+    related: ['list-sort', 'min', 'reversed'],
+  },
+  {
+    id: 'reversed',
+    name: 'reversed()',
+    signature: 'reversed(seq)',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Restituisce un iteratore sulla sequenza al contrario, senza copiare i dati.',
+      'Returns an iterator over the sequence in reverse, without copying the data.',
+      'Devuelve un iterador sobre la secuencia al revés, sin copiar los datos.',
+      'Renvoie un itérateur sur la séquence à l’envers, sans copier les données.',
+    ),
+    examples: [
+      { code: 'print(list(reversed("ab")))\nprint(list(reversed([1, 2, 3])))', result: "['b', 'a']\n[3, 2, 1]" },
+    ],
+    related: ['sorted', 'slicing'],
+  },
+  {
+    id: 'enumerate',
+    name: 'enumerate()',
+    signature: 'enumerate(iterable, start=0)',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Produce coppie (indice, elemento). Evita il classico for i in range(len(seq)).',
+      'Yields (index, item) pairs. Avoids the classic for i in range(len(seq)).',
+      'Produce pares (índice, elemento). Evita el clásico for i in range(len(seq)).',
+      'Produit des paires (index, élément). Évite le classique for i in range(len(seq)).',
+    ),
+    examples: [
+      { code: 'for i, ch in enumerate("py", start=1):\n    print(i, ch)', result: '1 p\n2 y' },
+    ],
+    related: ['zip', 'for', 'range'],
+  },
+  {
+    id: 'zip',
+    name: 'zip()',
+    signature: 'zip(*iterables, strict=False)',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Accoppia elementi nella stessa posizione da più iterabili. Si ferma al più corto, a meno di strict=True (Python 3.10+).',
+      'Pairs items at the same position from several iterables. Stops at the shortest, unless strict=True (Python 3.10+).',
+      'Empareja elementos en la misma posición de varios iterables. Se detiene en el más corto, salvo strict=True (Python 3.10+).',
+      'Apparie les éléments à la même position de plusieurs itérables. S’arrête au plus court, sauf strict=True (Python 3.10+).',
+    ),
+    examples: [
+      { code: 'names = ["Ada", "Alan"]\nscores = [10, 8]\nprint(list(zip(names, scores)))\nprint(dict(zip(names, scores)))', result: "[('Ada', 10), ('Alan', 8)]\n{'Ada': 10, 'Alan': 8}" },
+    ],
+    related: ['enumerate', 'dict', 'unpack'],
+  },
+  {
+    id: 'slicing',
+    name: 'slicing [start:stop:step]',
+    signature: 'seq[start:stop:step]',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Estrae una sotto-sequenza. Gli estremi mancanti usano inizio/fine. seq[::-1] inverte. Lo stop è escluso.',
+      'Extracts a subsequence. Missing bounds use start/end. seq[::-1] reverses. stop is exclusive.',
+      'Extrae una subsecuencia. Los extremos faltantes usan inicio/fin. seq[::-1] invierte. stop queda excluido.',
+      'Extrait une sous-séquence. Les bornes manquantes utilisent début/fin. seq[::-1] inverse. stop est exclu.',
+    ),
+    examples: [
+      { code: 's = "Python"\nprint(s[1:4])\nprint(s[:2], s[2:])\nprint(s[::-1])\nprint([0, 1, 2, 3, 4][::2])', result: "yth\nPy thon\nnohtyP\n[0, 2, 4]" },
+    ],
+    tip: L(
+      's[:] copia una lista superficiale. Per strutture nidificate serve copy.deepcopy.',
+      's[:] is a shallow copy of a list. Nested structures need copy.deepcopy.',
+      's[:] es una copia superficial de una lista. Las estructuras anidadas necesitan copy.deepcopy.',
+      's[:] est une copie superficielle d’une liste. Les structures imbriquées nécessitent copy.deepcopy.',
+    ),
+    related: ['list', 'range', 'reversed'],
+  },
+  {
+    id: 'in',
+    name: 'in / not in',
+    signature: 'x in container',
+    category: 'sequences',
+    subcategory: 'seq-ops',
+    description: L(
+      'Appartenenza: in stringhe, liste, tuple, set, dict (sulle chiavi). Su set e dict è molto più veloce che sulle liste.',
+      'Membership: in strings, lists, tuples, sets, dicts (on keys). On sets and dicts it is much faster than on lists.',
+      'Pertenencia: en cadenas, listas, tuplas, sets, dict (sobre claves). En set y dict es mucho más rápido que en listas.',
+      'Appartenance : dans chaînes, listes, tuples, sets, dict (sur les clés). Sur set et dict c’est bien plus rapide que sur les listes.',
+    ),
+    examples: [
+      { code: 'print("th" in "Python")\nprint(3 in [1, 2, 3])\nprint("a" in {"a": 1, "b": 2})', result: 'True\nTrue\nTrue' },
+    ],
+    related: ['is', 'dict-get', 'set'],
+  },
+]
