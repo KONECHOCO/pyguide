@@ -5,6 +5,7 @@ import { Home } from './components/Home'
 import { CategoryView, CommandView, Missing, SearchView } from './components/CommandView'
 import { commandById, commands, searchCommands } from './data'
 import { locales, ui } from './i18n'
+import { initializeMonetization } from './monetization'
 import type { Locale, Route } from './types'
 
 const LANG_KEY = 'pyguide-lang'
@@ -52,6 +53,7 @@ export default function App() {
     const onHash = () => setRoute(parseHash())
     window.addEventListener('hashchange', onHash)
     if (!window.location.hash) window.location.hash = '#/'
+    void initializeMonetization()
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
