@@ -33,7 +33,11 @@ const splashSvg = `
 await mkdir(iconDir, { recursive: true })
 await mkdir(splashDir, { recursive: true })
 
-await sharp(Buffer.from(iconSvg)).resize(1024, 1024).png().toFile(path.join(iconDir, 'AppIcon-512@2x.png'))
+await sharp(Buffer.from(iconSvg))
+  .resize(1024, 1024)
+  .flatten({ background: '#102033' })
+  .png()
+  .toFile(path.join(iconDir, 'AppIcon-512@2x.png'))
 await writeFile(path.join(iconDir, 'Contents.json'), JSON.stringify({
   images: [{ idiom: 'universal', platform: 'ios', size: '1024x1024', filename: 'AppIcon-512@2x.png' }],
   info: { version: 1, author: 'xcode' },
