@@ -22,6 +22,8 @@ workflows:
     scripts:
       - name: Install npm dependencies
         script: npm ci
+      - name: Patch Unity Ads Swift compatibility
+        script: node scripts/patch-unity-ads.mjs
       - name: Build web app and sync iOS assets
         script: npm run mobile:sync
       - name: Sync Capacitor plugins
