@@ -5,7 +5,7 @@ import { Home } from './components/Home'
 import { CategoryView, CommandView, Missing, SearchView } from './components/CommandView'
 import { commandById, commands, searchCommands } from './data'
 import { locales, ui } from './i18n'
-import { initializeMonetization } from './monetization'
+import { initializeMonetization, showInterstitialAd } from './monetization'
 import type { Locale, Route } from './types'
 
 const LANG_KEY = 'pyguide-lang'
@@ -73,6 +73,11 @@ export default function App() {
     setQuery('')
     setMenuOpen(false)
     window.scrollTo(0, 0)
+    if (next.page === 'command') {
+      const count = Number(localStorage.getItem('pyguide-command-opens') ?? '0') + 1
+      localStorage.setItem('pyguide-command-opens', String(count))
+      if (count % 5 === 0) void showInterstitialAd()
+    }
   }
 
   const results = useMemo(() => searchCommands(query, lang), [query, lang])
